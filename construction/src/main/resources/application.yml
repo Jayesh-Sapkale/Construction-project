@@ -1,0 +1,24 @@
+spring: 
+  application: 
+    name: construction-project
+  datasource: 
+    url: jdbc:mysql://localhost:3306/construction
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      properties: 
+        hibernate: 
+          format-sql: true
+  security: 
+    user: 
+      name: admin
+      password: admin
+server:
+  port: 8080
+  servlet: 
+    context-path: /construction-project
+  
