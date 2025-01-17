@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class CreateAdminRequestDto {
     private CreateBasicDetailsRequestDto basicDetails;
+    private CreateLocationDetailsRequestDto locationDetails;
 
 }

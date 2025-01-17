@@ -21,7 +21,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CreateCustomerResponseDto createCustomer(CreateCustomerRequestDto CustomerRequestDto) {
-        Customer savedCustomer = CustomerRepository.save(entityRequestBuilder.convertCustomerEntityToDto(CustomerRequestDto));
+        Customer savedCustomer = entityRequestBuilder.convertCustomerEntityToDto(CustomerRequestDto);
         return entityResponseBuilder.convertCustomerEntityToDto(savedCustomer.getId());
     }
 

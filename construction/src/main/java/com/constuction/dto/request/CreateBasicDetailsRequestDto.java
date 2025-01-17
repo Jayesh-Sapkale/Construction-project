@@ -20,5 +20,4 @@ public class CreateBasicDetailsRequestDto {
     private LocalDate dob;
     private String role;
     private String gender;
-    private CreateLocationDetailsRequestDto locationDetails;
 }

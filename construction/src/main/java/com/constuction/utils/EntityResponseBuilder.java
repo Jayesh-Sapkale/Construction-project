@@ -3,15 +3,13 @@ package com.constuction.utils;
 import com.constuction.dto.response.*;
 import com.constuction.entity.*;
 import com.constuction.repository.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+@Service
 @RequiredArgsConstructor
-@Builder(toBuilder = true)
 public class EntityResponseBuilder {
 
     public final OrderRepository orderRepository;
@@ -87,6 +85,7 @@ public class EntityResponseBuilder {
                     .builder()
                     .id(savedAdmin.getId())
                     .basicDetails(convertBasicDetailsToDto(savedAdmin.getBasicDetails().getId()))
+                    .locationDetails(convertLocationDetailsToDto(savedAdmin.getLocationDetails().getId()))
                     .build();
         }
         return adminResponseDto;
@@ -104,6 +103,7 @@ public class EntityResponseBuilder {
                     .companyDetails(convertCompanyDetailsToDto(savedBuilder.getCompanyDetails().getId()))
                     .isAvailable(savedBuilder.getIsAvailable())
                     .yearsOfExperience(savedBuilder.getYearsOfExperience())
+                    .locationDetails(convertLocationDetailsToDto(savedBuilder.getLocationDetails().getId()))
                     .build();
         }
         return builderResponseDto;
@@ -117,6 +117,7 @@ public class EntityResponseBuilder {
                     .builder()
                     .id(savedCustomer.getId())
                     .basicDetails(convertBasicDetailsToDto(savedCustomer.getBasicDetails().getId()))
+                    .locationDetails(convertLocationDetailsToDto(savedCustomer.getLocationDetails().getId()))
                     .build();
         }
         return customerResponseDto;

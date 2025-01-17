@@ -16,4 +16,5 @@ public class CreateBuilderRequestDto {
     private Boolean isAvailable;
     private CreateCompanyDetailsRequestDto companyDetails;
     private CreateBasicDetailsRequestDto basicDetails;
+    private CreateLocationDetailsRequestDto locationDetails;
 }

@@ -1,4 +1,7 @@
-spring: 
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
   application: 
     name: construction-project
   datasource: 

@@ -21,7 +21,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public CreateProjectResponseDto createProject(CreateProjectRequestDto ProjectRequestDto) {
-        Project savedProject = ProjectRepository.save(entityRequestBuilder.convertProjectEntityToDto(ProjectRequestDto));
+        Project savedProject = entityRequestBuilder.convertProjectEntityToDto(ProjectRequestDto);
         return entityResponseBuilder.convertProjectEntityToDto(savedProject.getId());
     }
 

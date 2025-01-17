@@ -23,7 +23,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public CreateAdminResponseDto createAdmin(CreateAdminRequestDto adminRequestDto) {
-        Admin savedAdmin = adminRepository.save(entityRequestBuilder.convertAdminEntityToDto(adminRequestDto));
+        Admin savedAdmin = entityRequestBuilder.convertAdminEntityToDto(adminRequestDto);
         return entityResponseBuilder.convertAdminEntityToDto(savedAdmin.getId());
     }
 

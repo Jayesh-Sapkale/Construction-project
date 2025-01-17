@@ -17,4 +17,5 @@ public class CreateBuilderResponseDto {
     private Boolean isAvailable;
     private CreateCompanyDetailsResponseDto companyDetails;
     private CreateBasicDetailsResponseDto basicDetails;
+    private CreateLocationDetailsResponseDto locationDetails;
 }

@@ -13,5 +13,6 @@ import lombok.NoArgsConstructor;
 public class CreateAdminResponseDto {
     private Long id;
     private CreateBasicDetailsResponseDto basicDetails;
+    private CreateLocationDetailsResponseDto locationDetails;
 
 }

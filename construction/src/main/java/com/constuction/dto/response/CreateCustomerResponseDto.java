@@ -12,4 +12,6 @@ import lombok.NoArgsConstructor;
 public class CreateCustomerResponseDto {
     private Long id;
     private CreateBasicDetailsResponseDto basicDetails;
+    private CreateLocationDetailsResponseDto locationDetails;
+
 }

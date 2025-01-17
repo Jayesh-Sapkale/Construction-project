@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public CreateOrderResponseDto createOrder(CreateOrderRequestDto OrderRequestDto) {
-        Order savedOrder = OrderRepository.save(entityRequestBuilder.convertOrderEntityToDto(OrderRequestDto));
+        Order savedOrder = entityRequestBuilder.convertOrderEntityToDto(OrderRequestDto);
         return entityResponseBuilder.convertOrderEntityToDto(savedOrder.getId());
     }
 

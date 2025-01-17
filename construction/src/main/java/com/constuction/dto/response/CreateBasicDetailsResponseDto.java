@@ -20,5 +20,4 @@ public class CreateBasicDetailsResponseDto {
     private LocalDate dob;
     private String role;
     private String gender;
-    private CreateLocationDetailsResponseDto locationDetails;
 }

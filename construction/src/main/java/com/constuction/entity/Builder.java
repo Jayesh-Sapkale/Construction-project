@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Cascade;
 
 import java.util.function.LongToDoubleFunction;
 
@@ -29,15 +30,18 @@ public class Builder extends BaseEntity {
 	@Column(name = "is_available")
 	private Boolean isAvailable;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "company_details_id", referencedColumnName = "id")
 	private CompanyDetails companyDetails;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "basic_details_id", referencedColumnName = "id")
 	private BasicDetails basicDetails;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "location_details_id", referencedColumnName = "id")
 	private LocationDetails locationDetails;
 

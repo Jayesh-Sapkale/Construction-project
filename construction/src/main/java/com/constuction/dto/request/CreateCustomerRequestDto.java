@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class CreateCustomerRequestDto {
     private CreateBasicDetailsRequestDto basicDetails;
+    private CreateLocationDetailsRequestDto locationDetails;
 }

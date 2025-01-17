@@ -22,7 +22,7 @@ public class BuilderServiceImpl implements BuilderService {
 
     @Override
     public CreateBuilderResponseDto createBuilder(CreateBuilderRequestDto builderRequestDto) {
-        Builder savedBuilder = builderRepository.save(entityRequestBuilder.convertBuilderEntityToDto(builderRequestDto));
+        Builder savedBuilder = entityRequestBuilder.convertBuilderEntityToDto(builderRequestDto);
         return entityResponseBuilder.convertBuilderEntityToDto(savedBuilder.getId());
     }
 
