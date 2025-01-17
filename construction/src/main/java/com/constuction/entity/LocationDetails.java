@@ -14,14 +14,9 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table(name = "location_details")
 public class LocationDetails extends BaseEntity{
-    
     private Long id;
-    
     private String State;
-    
     private String city;
-    
     private String pincode;
-    
     private String address;
 }

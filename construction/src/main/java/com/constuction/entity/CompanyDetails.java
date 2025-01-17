@@ -21,18 +21,24 @@ public class CompanyDetails extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "name")
 	private String name;
 
+	@Column(name = "number_of_employee")
 	private Long numberOfEmployee;
-	
+
+	@Column(name = "annual_revenue")
 	private Double annualRevenue;
 
+	@Column(name = "website")
 	private String website;
 
+	@Column(name = "founding_date")
 	private LocalDate foundingDate;
 
+	@Column(name = "construction_type")
+	@Enumerated(EnumType.STRING)
 	private ConstructionType constructionType;
-
 
 	@OneToOne
 	@JoinColumn(name = "location_details_id", referencedColumnName = "id")
