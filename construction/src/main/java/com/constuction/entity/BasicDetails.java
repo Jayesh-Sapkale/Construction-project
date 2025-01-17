@@ -45,9 +45,4 @@ public class BasicDetails extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @OneToOne
-    @JoinColumn(name = "location_details_id", referencedColumnName = "id")
-    private LocationDetails locationDetails;
-
-
 }

@@ -37,4 +37,8 @@ public class Builder extends BaseEntity {
 	@JoinColumn(name = "basic_details_id", referencedColumnName = "id")
 	private BasicDetails basicDetails;
 
+	@OneToOne
+	@JoinColumn(name = "location_details_id", referencedColumnName = "id")
+	private LocationDetails locationDetails;
+
 }

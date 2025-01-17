@@ -1,9 +1,9 @@
 package com.constuction.repository;
 
-import com.constuction.entity.LocationDetails;
+import com.constuction.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LocationDetailsRepository extends JpaRepository<LocationDetails,Long> {
+public interface OrderRepository extends JpaRepository<Order,Long> {
 }

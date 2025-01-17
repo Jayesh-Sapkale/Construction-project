@@ -1,13 +1,13 @@
 package com.constuction.service;
 
-import com.constuction.dto.ApiResponseDto;
 import com.constuction.dto.request.CreateProjectRequestDto;
+import com.constuction.dto.response.CreateProjectResponseDto;
 
 import java.util.List;
 
 public interface ProjectService {
 
-    public ApiResponseDto createProject(CreateProjectRequestDto ProjectRequestDto);
-    public ApiResponseDto updateProject(CreateProjectRequestDto ProjectRequestDto);
-    public List<ApiResponseDto> getAllProjects();
+    public CreateProjectResponseDto createProject(CreateProjectRequestDto ProjectRequestDto);
+    public CreateProjectResponseDto updateProject(CreateProjectRequestDto ProjectRequestDto);
+    public List<CreateProjectResponseDto> getAllProjects();
 }

@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @Entity
 @Table(name = "order_booking")
-public class OrderBooking extends BaseEntity{
+public class Order extends BaseEntity{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -21,5 +21,9 @@ public class Admin extends BaseEntity {
 	@OneToOne
 	@JoinColumn(name = "basic_details_id",referencedColumnName = "id")
 	private BasicDetails basicDetails;
+
+	@OneToOne
+	@JoinColumn(name = "location_details_id", referencedColumnName = "id")
+	private LocationDetails locationDetails;
 	
 }

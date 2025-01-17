@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateProjecResponsetDto {
+public class CreateProjectResponseDto {
 
     private Long id;
     private CreateLocationDetailsResponseDto locationDetails;

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateOrderBookingResponseDto {
+public class CreateOrderResponseDto {
     private Long id;
 
 }

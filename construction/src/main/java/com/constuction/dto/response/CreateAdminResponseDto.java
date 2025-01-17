@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class CreateAdminResponseDto {
     private Long id;
-    private CreateBasicDetailsRequestDto basicDetails;
+    private CreateBasicDetailsResponseDto basicDetails;
 
 }

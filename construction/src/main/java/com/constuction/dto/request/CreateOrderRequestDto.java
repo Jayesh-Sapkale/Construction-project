@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateOrderBookingRequestDto {
+public class CreateOrderRequestDto {
 
 }
