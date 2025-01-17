@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class ApiResponseDto {
     private String status;
-    private String data;
+    private Object data;
     private String message;
     private ErroCodes erroCodes;
 }
