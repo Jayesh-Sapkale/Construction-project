@@ -1,15 +1,11 @@
 package com.constuction.utils;
 
-import com.constuction.dto.request.*;
+import com.constuction.dto.request.create.*;
 import com.constuction.entity.*;
-import com.constuction.enums.ConstructionType;
-import com.constuction.enums.Gender;
-import com.constuction.enums.ProjectStatus;
-import com.constuction.enums.Role;
+import com.constuction.enums.*;
+import com.constuction.exceptions.ConstructionException;
 import com.constuction.repository.*;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.SecondaryRow;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -65,54 +61,104 @@ public class EntityRequestBuilder {
                                 .build());
     }
 
-    public Admin convertAdminEntityToDto(CreateAdminRequestDto adminRequestDto) {
+    public Admin convertAdminEntityToDto(CreateAdminRequestDto adminRequestDto) throws ConstructionException {
+        Long basicDetailsId = convertBasicDetailsToDto(adminRequestDto.getBasicDetails()).getId();
+        Long locationDetailsId = convertLocationDetailsToDto(adminRequestDto.getLocationDetails()).getId();
+        BasicDetails savedBasicDetails = basicDetailsRepository.findById(basicDetailsId).orElseThrow(() -> new ConstructionException("Basic details not found for id: " + basicDetailsId));
+        LocationDetails savedLocationDetails = locationDetailsRepository.findById(locationDetailsId).orElseThrow(() -> new ConstructionException("Location details not found for id: " + locationDetailsId));
+        savedLocationDetails = savedLocationDetails
+                .toBuilder()
+                .type(LocationType.ADMIN)
+                .build();
         return
                 adminRepository.save(
                         Admin
                                 .builder()
-                                .basicDetails(convertBasicDetailsToDto(adminRequestDto.getBasicDetails()))
-                                .locationDetails(convertLocationDetailsToDto(adminRequestDto.getLocationDetails()))
+                                .basicDetails(savedBasicDetails)
+                                .locationDetails(savedLocationDetails)
+                                .isDeleted(Boolean.FALSE)
                                 .build());
     }
 
-    public com.constuction.entity.Builder convertBuilderEntityToDto(CreateBuilderRequestDto builderRequestDto) {
+    public com.constuction.entity.Builder convertBuilderEntityToDto(CreateBuilderRequestDto builderRequestDto) throws ConstructionException {
+
+        Long basicDetailsId = convertBasicDetailsToDto(builderRequestDto.getBasicDetails()).getId();
+        Long companyDetailsId = convertCompanyDetailsToDto(builderRequestDto.getCompanyDetails()).getId();
+        Long locationDetailsId = convertLocationDetailsToDto(builderRequestDto.getLocationDetails()).getId();
+
+        BasicDetails savedBasicDetails = basicDetailsRepository.findById(basicDetailsId).orElseThrow(() -> new ConstructionException("Basic details not found for id: " + basicDetailsId));
+        CompanyDetails savedCompanyDetails = companyDetailsRepository.findById(companyDetailsId).orElseThrow(() -> new ConstructionException("Company details not found for id: " + companyDetailsId));
+        LocationDetails savedLocationDetails = locationDetailsRepository.findById(locationDetailsId).orElseThrow(() -> new ConstructionException("Location details not found for id: " + locationDetailsId));
+        savedLocationDetails = savedLocationDetails
+                .toBuilder()
+                .type(LocationType.BUILDER)
+                .build();
         return
                 builderRepository.save(
                         com.constuction.entity.Builder
                                 .builder()
                                 .rate(builderRequestDto.getRate())
-                                .basicDetails(convertBasicDetailsToDto(builderRequestDto.getBasicDetails()))
-                                .companyDetails(convertCompanyDetailsToDto(builderRequestDto.getCompanyDetails()))
+                                .basicDetails(savedBasicDetails)
+                                .companyDetails(savedCompanyDetails)
                                 .isAvailable(builderRequestDto.getIsAvailable())
                                 .yearsOfExperience(builderRequestDto.getYearsOfExperience())
-                                .locationDetails(convertLocationDetailsToDto(builderRequestDto.getLocationDetails()))
+                                .locationDetails(savedLocationDetails)
+                                .isDeleted(Boolean.FALSE)
                                 .build());
     }
 
-    public Customer convertCustomerEntityToDto(CreateCustomerRequestDto customerRequestDto) {
+    public Customer convertCustomerEntityToDto(CreateCustomerRequestDto customerRequestDto) throws ConstructionException {
+
+        Long basicDetailsId = convertBasicDetailsToDto(customerRequestDto.getBasicDetails()).getId();
+        Long locationDetailsId = convertLocationDetailsToDto(customerRequestDto.getLocationDetails()).getId();
+
+        BasicDetails savedBasicDetails = basicDetailsRepository.findById(basicDetailsId).orElseThrow(() -> new ConstructionException("Basic details not found for id: " + basicDetailsId));
+        LocationDetails savedLocationDetails = locationDetailsRepository.findById(locationDetailsId).orElseThrow(() -> new ConstructionException("Location details not found for id: " + locationDetailsId));
+        savedLocationDetails = savedLocationDetails
+                .toBuilder()
+                .type(LocationType.CUSTOMER)
+                .build();
         return
                 customerRepository.save(
                         Customer
                                 .builder()
-                                .basicDetails(convertBasicDetailsToDto(customerRequestDto.getBasicDetails()))
-                                .locationDetails(convertLocationDetailsToDto(customerRequestDto.getLocationDetails()))
+                                .basicDetails(savedBasicDetails)
+                                .locationDetails(savedLocationDetails)
+                                .isDeleted(Boolean.FALSE)
                                 .build());
     }
 
-    public Order convertOrderEntityToDto(CreateOrderRequestDto orderRequestDto) {
+    public Order convertOrderEntityToDto(CreateOrderRequestDto orderRequestDto) throws ConstructionException {
+
+        Long customerId = convertCustomerEntityToDto(orderRequestDto.getCreateCustomerRequestDto()).getId();
+        Long projectId = convertProjectEntityToDto(orderRequestDto.getCreateProjectRequestDto()).getId();
+        Customer savedCustomer = customerRepository.findById(customerId).orElseThrow(() -> new ConstructionException("Customer details not found for id: " + customerId));
+        Project savedProject = projectRepository.findById(projectId).orElseThrow(() -> new ConstructionException("Project details not found for id: " + projectId));
         return
                 orderRepository.save(
                         Order
                                 .builder()
+                                .customer(savedCustomer)
+                                .project(savedProject)
+                                .isDeleted(Boolean.FALSE)
                                 .build());
     }
 
-    public Project convertProjectEntityToDto(CreateProjectRequestDto projectRequestDto) {
+    public Project convertProjectEntityToDto(CreateProjectRequestDto projectRequestDto) throws ConstructionException {
+
+        Long builderId = convertBuilderEntityToDto(projectRequestDto.getBuilder()).getId();
+        Long locationDetailsId = convertLocationDetailsToDto(projectRequestDto.getLocationDetails()).getId();
+        Builder savedBuilder = builderRepository.findById(builderId).orElseThrow(() -> new ConstructionException("Builder details not found for id: " + builderId));
+        LocationDetails savedLocationDetails = locationDetailsRepository.findById(locationDetailsId).orElseThrow(() -> new ConstructionException("Location details not found for id: " + locationDetailsId));
+        savedLocationDetails = savedLocationDetails
+                .toBuilder()
+                .type(LocationType.PROJECT)
+                .build();
         return
                 projectRepository.save(
                         Project
                                 .builder()
-                                .builder(convertBuilderEntityToDto(projectRequestDto.getBuilder()))
+                                .builder(savedBuilder)
                                 .area(projectRequestDto.getArea())
                                 .constructionType(ConstructionType.valueOf(projectRequestDto.getConstructionType().toUpperCase()))
                                 .description(projectRequestDto.getDescription())
@@ -121,7 +167,8 @@ public class EntityRequestBuilder {
                                 .endDate(projectRequestDto.getEndDate())
                                 .estimatedPrice(projectRequestDto.getEstimatedPrice())
                                 .projectName(projectRequestDto.getProjectName())
-                                .locationDetails(convertLocationDetailsToDto(projectRequestDto.getLocationDetails()))
+                                .locationDetails(savedLocationDetails)
+                                .isDeleted(Boolean.FALSE)
                                 .build());
     }
 

@@ -1,9 +1,9 @@
 package com.constuction.controller;
 
 import com.constuction.dto.ApiResponseDto;
-import com.constuction.dto.request.create.CreateAdminRequestDto;
-import com.constuction.dto.response.CreateAdminResponseDto;
-import com.constuction.service.AdminService;
+import com.constuction.dto.request.create.CreateCustomerRequestDto;
+import com.constuction.dto.response.CreateCustomerResponseDto;
+import com.constuction.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/customer")
 @RequiredArgsConstructor
-public class AdminController {
+public class CustomerController {
 
-    public final AdminService adminService;
+    public final CustomerService customerService;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<?> createAdmin(@RequestBody CreateAdminRequestDto createAdminRequestDto) {
+    public ResponseEntity<?> createCustomer(@RequestBody CreateCustomerRequestDto createCustomerRequestDto) {
         ApiResponseDto responseDto = new ApiResponseDto();
         try {
-            CreateAdminResponseDto adminResponseDto = adminService.createAdmin(createAdminRequestDto);
+            CreateCustomerResponseDto CustomerResponseDto = customerService.createCustomer(createCustomerRequestDto);
             responseDto.setStatus("SUCCESS");
-            responseDto.setData(adminResponseDto);
-            responseDto.setMessage("Admin created successfully with id: " + adminResponseDto.getId());
+            responseDto.setData(CustomerResponseDto);
+            responseDto.setMessage("Customer created successfully with id: " + CustomerResponseDto.getId());
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
             responseDto.setData(null);
@@ -34,16 +34,16 @@ public class AdminController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllAdmins() {
+    public ResponseEntity<?> getAllCustomers() {
         ApiResponseDto responseDto = new ApiResponseDto();
         try {
-            List<CreateAdminResponseDto> admins = adminService.getAllAdmins();
+            List<CreateCustomerResponseDto> Customers = customerService.getAllCustomers();
             responseDto.setStatus("SUCCESS");
-            responseDto.setData(admins);
-            responseDto.setMessage(admins.size() + " admins details fetched successfully");
-            if (admins.isEmpty()){
+            responseDto.setData(Customers);
+            responseDto.setMessage(Customers.size() + " Customers details fetched successfully");
+            if (Customers.isEmpty()){
                 responseDto.setData(null);
-                responseDto.setMessage("No admins found");
+                responseDto.setMessage("No Customers found");
             }
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
@@ -54,10 +54,10 @@ public class AdminController {
     }
 
     @PutMapping("/delete/{id}")
-    public ResponseEntity<?> deletedAdmin(@PathVariable Long id) {
+    public ResponseEntity<?> deletedCustomer(@PathVariable Long id) {
         ApiResponseDto responseDto = new ApiResponseDto();
         try {
-            responseDto = adminService.deleteAdmin(id);
+            responseDto = customerService.deleteCustomer(id);
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
             responseDto.setData(null);

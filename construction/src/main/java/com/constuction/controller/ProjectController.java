@@ -1,9 +1,9 @@
 package com.constuction.controller;
 
 import com.constuction.dto.ApiResponseDto;
-import com.constuction.dto.request.create.CreateAdminRequestDto;
-import com.constuction.dto.response.CreateAdminResponseDto;
-import com.constuction.service.AdminService;
+import com.constuction.dto.request.create.CreateProjectRequestDto;
+import com.constuction.dto.response.CreateProjectResponseDto;
+import com.constuction.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/project")
 @RequiredArgsConstructor
-public class AdminController {
+public class ProjectController {
 
-    public final AdminService adminService;
+    public final ProjectService projectService;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<?> createAdmin(@RequestBody CreateAdminRequestDto createAdminRequestDto) {
+    public ResponseEntity<?> createProject(@RequestBody CreateProjectRequestDto createprojectRequestDto) {
         ApiResponseDto responseDto = new ApiResponseDto();
         try {
-            CreateAdminResponseDto adminResponseDto = adminService.createAdmin(createAdminRequestDto);
+            CreateProjectResponseDto projectResponseDto = projectService.createProject(createprojectRequestDto);
             responseDto.setStatus("SUCCESS");
-            responseDto.setData(adminResponseDto);
-            responseDto.setMessage("Admin created successfully with id: " + adminResponseDto.getId());
+            responseDto.setData(projectResponseDto);
+            responseDto.setMessage("project created successfully with id: " + projectResponseDto.getId());
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
             responseDto.setData(null);
@@ -34,16 +34,16 @@ public class AdminController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllAdmins() {
+    public ResponseEntity<?> getAllProjects() {
         ApiResponseDto responseDto = new ApiResponseDto();
         try {
-            List<CreateAdminResponseDto> admins = adminService.getAllAdmins();
+            List<CreateProjectResponseDto> projects = projectService.getAllProjects();
             responseDto.setStatus("SUCCESS");
-            responseDto.setData(admins);
-            responseDto.setMessage(admins.size() + " admins details fetched successfully");
-            if (admins.isEmpty()){
+            responseDto.setData(projects);
+            responseDto.setMessage(projects.size() + " projects details fetched successfully");
+            if (projects.isEmpty()){
                 responseDto.setData(null);
-                responseDto.setMessage("No admins found");
+                responseDto.setMessage("No projects found");
             }
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
@@ -54,10 +54,10 @@ public class AdminController {
     }
 
     @PutMapping("/delete/{id}")
-    public ResponseEntity<?> deletedAdmin(@PathVariable Long id) {
+    public ResponseEntity<?> deletedProject(@PathVariable Long id) {
         ApiResponseDto responseDto = new ApiResponseDto();
         try {
-            responseDto = adminService.deleteAdmin(id);
+            responseDto = projectService.deleteProject(id);
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
             responseDto.setData(null);

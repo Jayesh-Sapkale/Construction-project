@@ -1,9 +1,9 @@
 package com.constuction.controller;
 
 import com.constuction.dto.ApiResponseDto;
-import com.constuction.dto.request.create.CreateAdminRequestDto;
-import com.constuction.dto.response.CreateAdminResponseDto;
-import com.constuction.service.AdminService;
+import com.constuction.dto.request.create.CreateBuilderRequestDto;
+import com.constuction.dto.response.CreateBuilderResponseDto;
+import com.constuction.service.BuilderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/builder")
 @RequiredArgsConstructor
-public class AdminController {
+public class BuilderController {
 
-    public final AdminService adminService;
+    public final BuilderService builderService;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<?> createAdmin(@RequestBody CreateAdminRequestDto createAdminRequestDto) {
+    public ResponseEntity<?> createBuilder(@RequestBody CreateBuilderRequestDto createBuilderRequestDto) {
         ApiResponseDto responseDto = new ApiResponseDto();
         try {
-            CreateAdminResponseDto adminResponseDto = adminService.createAdmin(createAdminRequestDto);
+            CreateBuilderResponseDto BuilderResponseDto = builderService.createBuilder(createBuilderRequestDto);
             responseDto.setStatus("SUCCESS");
-            responseDto.setData(adminResponseDto);
-            responseDto.setMessage("Admin created successfully with id: " + adminResponseDto.getId());
+            responseDto.setData(BuilderResponseDto);
+            responseDto.setMessage("Builder created successfully with id: " + BuilderResponseDto.getId());
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
             responseDto.setData(null);
@@ -34,16 +34,16 @@ public class AdminController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllAdmins() {
+    public ResponseEntity<?> getAllBuilders() {
         ApiResponseDto responseDto = new ApiResponseDto();
         try {
-            List<CreateAdminResponseDto> admins = adminService.getAllAdmins();
+            List<CreateBuilderResponseDto> Builders = builderService.getAllBuilders();
             responseDto.setStatus("SUCCESS");
-            responseDto.setData(admins);
-            responseDto.setMessage(admins.size() + " admins details fetched successfully");
-            if (admins.isEmpty()){
+            responseDto.setData(Builders);
+            responseDto.setMessage(Builders.size() + " Builders details fetched successfully");
+            if (Builders.isEmpty()){
                 responseDto.setData(null);
-                responseDto.setMessage("No admins found");
+                responseDto.setMessage("No Builders found");
             }
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
@@ -54,10 +54,10 @@ public class AdminController {
     }
 
     @PutMapping("/delete/{id}")
-    public ResponseEntity<?> deletedAdmin(@PathVariable Long id) {
+    public ResponseEntity<?> deletedBuilder(@PathVariable Long id) {
         ApiResponseDto responseDto = new ApiResponseDto();
         try {
-            responseDto = adminService.deleteAdmin(id);
+            responseDto = builderService.deleteBuilder(id);
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
             responseDto.setData(null);

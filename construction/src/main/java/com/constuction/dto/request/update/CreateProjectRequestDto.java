@@ -1,4 +1,4 @@
-package com.constuction.dto.request;
+package com.constuction.dto.request.update;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

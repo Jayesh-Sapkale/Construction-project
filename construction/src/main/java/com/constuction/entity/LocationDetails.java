@@ -1,5 +1,6 @@
 package com.constuction.entity;
 
+import com.constuction.enums.LocationType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,4 +30,8 @@ public class LocationDetails extends BaseEntity{
 
     @Column(name = "address")
     private String address;
+
+    @Column(name = "type")
+    @Enumerated(value = EnumType.STRING)
+    private LocationType type;
 }

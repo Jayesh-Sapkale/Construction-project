@@ -1,4 +1,4 @@
-package com.constuction.dto.response;
+package com.constuction.dto.request.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateAdminResponseDto {
+public class CreateOrderRequestDto {
+
     private Long id;
-    private CreateBasicDetailsResponseDto basicDetails;
-    private CreateLocationDetailsResponseDto locationDetails;
+
+    private CreateCustomerRequestDto createCustomerRequestDto;
+
+    private CreateProjectRequestDto createProjectRequestDto;
 
 }

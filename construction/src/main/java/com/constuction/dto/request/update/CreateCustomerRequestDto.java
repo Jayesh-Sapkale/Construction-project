@@ -1,4 +1,4 @@
-package com.constuction.dto.request;
+package com.constuction.dto.request.update;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateAdminRequestDto {
+public class CreateCustomerRequestDto {
     private CreateBasicDetailsRequestDto basicDetails;
     private CreateLocationDetailsRequestDto locationDetails;
-
 }

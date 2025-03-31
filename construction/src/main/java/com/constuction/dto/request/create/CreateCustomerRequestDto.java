@@ -1,4 +1,4 @@
-package com.constuction.dto.request;
+package com.constuction.dto.request.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,12 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateBuilderRequestDto {
-
-    private Double rate;
-    private Double yearsOfExperience;
-    private Boolean isAvailable;
-    private CreateCompanyDetailsRequestDto companyDetails;
+public class CreateCustomerRequestDto {
     private CreateBasicDetailsRequestDto basicDetails;
     private CreateLocationDetailsRequestDto locationDetails;
 }

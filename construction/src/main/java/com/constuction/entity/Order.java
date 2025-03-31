@@ -18,7 +18,13 @@ public class Order extends BaseEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@ManyToOne
+	@JoinColumn(name = "id")
+	private Customer customer;
 
-	
-	
+	@ManyToOne
+	@JoinColumn(name = "id")
+	private Project project;
+
+
 }
