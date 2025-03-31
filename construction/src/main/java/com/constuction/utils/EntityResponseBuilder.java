@@ -2,6 +2,7 @@ package com.constuction.utils;
 
 import com.constuction.dto.response.*;
 import com.constuction.entity.*;
+import com.constuction.exceptions.ConstructionException;
 import com.constuction.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class EntityResponseBuilder {
     public final LocationDetailsRepository locationDetailsRepository;
 
 
-    public CreateLocationDetailsResponseDto convertLocationDetailsToDto(Long id) {
-        LocationDetails savedLocationDetails = locationDetailsRepository.findById(id).orElseThrow();
+    public CreateLocationDetailsResponseDto convertLocationDetailsToDto(Long id) throws ConstructionException {
+        LocationDetails savedLocationDetails = locationDetailsRepository.findById(id).orElseThrow(() -> new ConstructionException("Location details not found for id: " + id));
         CreateLocationDetailsResponseDto locationDetailsResponseDto = new CreateLocationDetailsResponseDto();
 
         if (Objects.nonNull(savedLocationDetails)) {
@@ -39,9 +40,8 @@ public class EntityResponseBuilder {
         return locationDetailsResponseDto;
     }
 
-    public CreateBasicDetailsResponseDto convertBasicDetailsToDto(Long id) {
-        Admin savedAdmin = adminRepository.findById(id).orElseThrow();
-        BasicDetails savedBasicDetails = savedAdmin.getBasicDetails();
+    public CreateBasicDetailsResponseDto convertBasicDetailsToDto(Long id) throws ConstructionException {
+        BasicDetails savedBasicDetails = basicDetailsRepository.findById(id).orElseThrow(() -> new ConstructionException("Basic details not found for id: " + id));
         CreateBasicDetailsResponseDto basicDetailsResponseDto = new CreateBasicDetailsResponseDto();
 
         if (Objects.nonNull(savedBasicDetails)) {
@@ -60,8 +60,8 @@ public class EntityResponseBuilder {
         return basicDetailsResponseDto;
     }
 
-    public CreateCompanyDetailsResponseDto convertCompanyDetailsToDto(Long id) {
-        CompanyDetails savedCompanyDetails = companyDetailsRepository.findById(id).orElseThrow();
+    public CreateCompanyDetailsResponseDto convertCompanyDetailsToDto(Long id) throws ConstructionException {
+        CompanyDetails savedCompanyDetails = companyDetailsRepository.findById(id).orElseThrow(() -> new ConstructionException("Company details not found for id: " + id));
         CreateCompanyDetailsResponseDto companyDetailsResponseDto = new CreateCompanyDetailsResponseDto();
 
         if (Objects.nonNull(savedCompanyDetails)) {
@@ -77,8 +77,8 @@ public class EntityResponseBuilder {
         return companyDetailsResponseDto;
     }
 
-    public CreateAdminResponseDto convertAdminEntityToDto(Long id) {
-        Admin savedAdmin = adminRepository.findById(id).orElseThrow();
+    public CreateAdminResponseDto convertAdminEntityToDto(Long id) throws ConstructionException {
+        Admin savedAdmin = adminRepository.findById(id).orElseThrow(() -> new ConstructionException("Admin details not found for id: " + id));
         CreateAdminResponseDto adminResponseDto = new CreateAdminResponseDto();
         if (Objects.nonNull(savedAdmin)) {
             adminResponseDto = CreateAdminResponseDto
@@ -91,8 +91,8 @@ public class EntityResponseBuilder {
         return adminResponseDto;
     }
 
-    public CreateBuilderResponseDto convertBuilderEntityToDto(Long id) {
-        com.constuction.entity.Builder savedBuilder = builderRepository.findById(id).orElseThrow();
+    public CreateBuilderResponseDto convertBuilderEntityToDto(Long id) throws ConstructionException {
+        Builder savedBuilder = builderRepository.findById(id).orElseThrow(() -> new ConstructionException("Builder details not found for id: " + id));
         CreateBuilderResponseDto builderResponseDto = new CreateBuilderResponseDto();
         if (Objects.nonNull(savedBuilder)) {
             builderResponseDto = CreateBuilderResponseDto
@@ -109,8 +109,8 @@ public class EntityResponseBuilder {
         return builderResponseDto;
     }
 
-    public CreateCustomerResponseDto convertCustomerEntityToDto(Long id) {
-        Customer savedCustomer = customerRepository.findById(id).orElseThrow();
+    public CreateCustomerResponseDto convertCustomerEntityToDto(Long id) throws ConstructionException {
+        Customer savedCustomer = customerRepository.findById(id).orElseThrow(() -> new ConstructionException("Customer details not found for id: " + id));
         CreateCustomerResponseDto customerResponseDto = new CreateCustomerResponseDto();
         if (Objects.nonNull(savedCustomer)) {
             customerResponseDto = CreateCustomerResponseDto
@@ -123,20 +123,24 @@ public class EntityResponseBuilder {
         return customerResponseDto;
     }
 
-    public CreateOrderResponseDto convertOrderEntityToDto(Long id) {
-        Order savedOrder = orderRepository.findById(id).orElseThrow();
+    public CreateOrderResponseDto convertOrderEntityToDto(Long id) throws ConstructionException {
+        Order savedOrder = orderRepository.findById(id).orElseThrow(() -> new ConstructionException("Order details not found for id: " + id));
+        Customer savedCustomer = customerRepository.findById(savedOrder.getCustomer().getId()).orElseThrow(() -> new ConstructionException("Customer details not found for id: " + savedOrder.getCustomer().getId()));
+        Project savedProject = projectRepository.findById(savedOrder.getProject().getId()).orElseThrow(() -> new ConstructionException("Project details not found for id: " + savedOrder.getProject().getId()));
+
         CreateOrderResponseDto orderResponseDto = new CreateOrderResponseDto();
-        if (Objects.nonNull(savedOrder)) {
-            orderResponseDto = CreateOrderResponseDto
-                    .builder()
-                    .id(savedOrder.getId())
-                    .build();
-        }
+        orderResponseDto = CreateOrderResponseDto
+                .builder()
+                .id(savedOrder.getId())
+                .customer(convertCustomerEntityToDto(savedCustomer.getId()))
+                .project(convertProjectEntityToDto(savedProject.getId()))
+                .build();
+
         return orderResponseDto;
     }
 
-    public CreateProjectResponseDto convertProjectEntityToDto(Long id) {
-        Project savedProject = projectRepository.findById(id).orElseThrow();
+    public CreateProjectResponseDto convertProjectEntityToDto(Long id) throws ConstructionException {
+        Project savedProject = projectRepository.findById(id).orElseThrow(() -> new ConstructionException("Project details not found for id: " + id));
         CreateProjectResponseDto projectResponseDto = new CreateProjectResponseDto();
 
         if (Objects.nonNull((savedProject))) {

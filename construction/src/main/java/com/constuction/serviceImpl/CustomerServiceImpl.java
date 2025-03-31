@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +28,11 @@ public class CustomerServiceImpl implements CustomerService {
     public CreateCustomerResponseDto createCustomer(CreateCustomerRequestDto customerRequestDto) throws ConstructionException {
         log.info("START --> CustomerServiceImpl.createCustomer()");
 
-        List<Customer> existingCustomers = customerRepository.findByFirstNameAndLastNameAndMobileNumber(customerRequestDto.getBasicDetails().getFirstName()
+        Customer existingCustomer = customerRepository.findByFirstNameAndLastNameAndMobileNumber(customerRequestDto.getBasicDetails().getFirstName()
                 , customerRequestDto.getBasicDetails().getLastName()
                 , customerRequestDto.getBasicDetails().getMobileNumber());
 
-        if (!existingCustomers.isEmpty())
+        if (Objects.nonNull(existingCustomer))
             throw new ConstructionException("customer already exist");
         Customer savedCustomer = entityRequestBuilder.convertCustomerEntityToDto(customerRequestDto);
         log.info("END --> CustomerServiceImpl.createCustomer()");
@@ -50,8 +51,15 @@ public class CustomerServiceImpl implements CustomerService {
         log.info("END --> CustomerServiceImpl.getAllCustomers()");
         return Customers.stream()
                 .map(
-                        Customer -> entityResponseBuilder.convertCustomerEntityToDto(Customer.getId())
-                ).toList();
+                        Customer -> {
+                            try {
+                                return entityResponseBuilder.convertCustomerEntityToDto(Customer.getId());
+                            } catch (ConstructionException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                )
+                .toList();
     }
 
     @Override

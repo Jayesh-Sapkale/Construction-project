@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-@Table(name = "basic_details")
+@Table(name = "company_details")
 @Entity
 public class CompanyDetails extends BaseEntity {
 

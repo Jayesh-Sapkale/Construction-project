@@ -29,12 +29,14 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public CreateAdminResponseDto createAdmin(CreateAdminRequestDto adminRequestDto) throws ConstructionException {
         log.info("START --> AdminServiceImpl.createAdmin()");
-        List<Admin> existingAdmins = adminRepository.findByFirstNameAndLastNameAndMobileNumber(adminRequestDto.getBasicDetails().getFirstName()
+        Admin existingAdmin = adminRepository.findByFirstNameAndLastNameAndMobileNumber(adminRequestDto.getBasicDetails().getFirstName()
                 , adminRequestDto.getBasicDetails().getLastName()
                 , adminRequestDto.getBasicDetails().getMobileNumber());
 
-        if (!existingAdmins.isEmpty())
+        if (Objects.nonNull(existingAdmin)) {
+            log.error("Admin already exist with id: {}", existingAdmin.getId());
             throw new ConstructionException("Admin already exist");
+        }
 
         Admin savedAdmin = entityRequestBuilder.convertAdminEntityToDto(adminRequestDto);
         log.info("END --> AdminServiceImpl.createAdmin()");
@@ -65,7 +67,13 @@ public class AdminServiceImpl implements AdminService {
                 .filter(admin -> Objects.nonNull(admin.getIsDeleted()))
                 .filter(admin -> admin.getIsDeleted().equals(Boolean.FALSE))
                 .map(
-                        admin -> entityResponseBuilder.convertAdminEntityToDto(admin.getId())
+                        admin -> {
+                            try {
+                                return entityResponseBuilder.convertAdminEntityToDto(admin.getId());
+                            } catch (ConstructionException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
                 ).toList();
     }
 }

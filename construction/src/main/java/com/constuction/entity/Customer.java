@@ -12,7 +12,7 @@ import org.hibernate.annotations.Cascade;
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Entity
-@Table(name = "customer")
+@Table(name = "customer_details")
 public class Customer extends BaseEntity {
 	
 	@Id

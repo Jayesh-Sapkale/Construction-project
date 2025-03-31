@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Entity
-@Table(name = "project")
+@Table(name = "project_details")
 public class Project extends BaseEntity {
 
 	@Id
@@ -28,7 +28,8 @@ public class Project extends BaseEntity {
 	@JoinColumn(name = "location_details_id", referencedColumnName = "id")
 	private LocationDetails locationDetails;
 
-	@OneToOne
+	@ManyToOne
+	@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	@JoinColumn(name = "builder_id", referencedColumnName = "id")
 	private Builder builder;
 

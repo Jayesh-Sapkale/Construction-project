@@ -1,5 +1,6 @@
 package com.constuction.entity;
 
+import com.constuction.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Entity
-@Table(name = "order_booking")
+@Table(name = "order_details")
 public class Order extends BaseEntity{
 	
 	@Id
@@ -19,12 +20,15 @@ public class Order extends BaseEntity{
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
 	@ManyToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "project_id")
 	private Project project;
+
+	@Column(name = "order_status")
+	private OrderStatus orderStatus;
 
 
 }

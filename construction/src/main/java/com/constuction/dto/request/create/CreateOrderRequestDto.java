@@ -10,11 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class CreateOrderRequestDto {
-
-    private Long id;
-
-    private CreateCustomerRequestDto createCustomerRequestDto;
-
-    private CreateProjectRequestDto createProjectRequestDto;
+    private CreateCustomerRequestDto customer;
+    private CreateProjectRequestDto project;
 
 }

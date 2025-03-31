@@ -5,6 +5,7 @@ import com.constuction.dto.request.create.CreateProjectRequestDto;
 import com.constuction.dto.response.CreateProjectResponseDto;
 import com.constuction.service.ProjectService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/project")
 @RequiredArgsConstructor
+@Slf4j
 public class ProjectController {
 
     public final ProjectService projectService;
@@ -24,10 +26,12 @@ public class ProjectController {
             CreateProjectResponseDto projectResponseDto = projectService.createProject(createprojectRequestDto);
             responseDto.setStatus("SUCCESS");
             responseDto.setData(projectResponseDto);
+            log.info("project created successfully with id: {}", projectResponseDto.getId());
             responseDto.setMessage("project created successfully with id: " + projectResponseDto.getId());
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
             responseDto.setData(null);
+            log.error(e.getMessage());
             responseDto.setMessage("An error occurred: " + e.getMessage());
         }
         return ResponseEntity.ok(responseDto);
@@ -40,14 +44,17 @@ public class ProjectController {
             List<CreateProjectResponseDto> projects = projectService.getAllProjects();
             responseDto.setStatus("SUCCESS");
             responseDto.setData(projects);
+            log.info("{} projects details fetched successfully", projects.size());
             responseDto.setMessage(projects.size() + " projects details fetched successfully");
-            if (projects.isEmpty()){
+            if (projects.isEmpty()) {
                 responseDto.setData(null);
+                log.info("No projects found");
                 responseDto.setMessage("No projects found");
             }
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
             responseDto.setData(null);
+            log.error(e.getMessage());
             responseDto.setMessage("An error occurred: " + e.getMessage());
         }
         return ResponseEntity.ok(responseDto);
@@ -61,6 +68,7 @@ public class ProjectController {
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
             responseDto.setData(null);
+            log.error(e.getMessage());
             responseDto.setMessage("An error occurred: " + e.getMessage());
         }
         return ResponseEntity.ok(responseDto);

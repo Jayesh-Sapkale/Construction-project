@@ -14,7 +14,7 @@ import java.util.function.LongToDoubleFunction;
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Entity
-@Table(name = "builder")
+@Table(name = "builder_details")
 public class Builder extends BaseEntity {
 
 	@Id

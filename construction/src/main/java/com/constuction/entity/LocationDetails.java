@@ -20,7 +20,7 @@ public class LocationDetails extends BaseEntity{
     private Long id;
 
     @Column(name = "state")
-    private String State;
+    private String state;
 
     @Column(name = "city")
     private String city;

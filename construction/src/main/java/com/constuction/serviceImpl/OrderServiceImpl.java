@@ -45,7 +45,13 @@ public class OrderServiceImpl implements OrderService {
         log.info("END --> OrderServiceImpl.getAllOrders()");
         return Orders.stream()
                 .map(
-                        Order -> entityResponseBuilder.convertOrderEntityToDto(Order.getId())
+                        Order -> {
+                            try {
+                                return entityResponseBuilder.convertOrderEntityToDto(Order.getId());
+                            } catch (ConstructionException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
                 ).toList();
     }
 

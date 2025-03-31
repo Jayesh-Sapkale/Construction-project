@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -27,15 +28,15 @@ public class BuilderServiceImpl implements BuilderService {
     public CreateBuilderResponseDto createBuilder(CreateBuilderRequestDto builderRequestDto) throws ConstructionException {
         log.info("START --> BuilderServiceImpl.createBuilder()");
 
-        List<Builder> existingBuilders = builderRepository.findByFirstNameAndLastNameAndMobileNumber(builderRequestDto.getBasicDetails().getFirstName()
+        Builder existingBuilder = builderRepository.findByFirstNameAndLastNameAndMobileNumber(builderRequestDto.getBasicDetails().getFirstName()
                 , builderRequestDto.getBasicDetails().getLastName()
                 , builderRequestDto.getBasicDetails().getMobileNumber());
 
-        if (!existingBuilders.isEmpty())
+        if (Objects.nonNull(existingBuilder))
             throw new ConstructionException("builder already exist");
 
         Builder savedBuilder = entityRequestBuilder.convertBuilderEntityToDto(builderRequestDto);
-        log.info("START --> BuilderServiceImpl.createBuilder()");
+        log.info("END --> BuilderServiceImpl.createBuilder()");
         return entityResponseBuilder.convertBuilderEntityToDto(savedBuilder.getId());
     }
 
@@ -48,10 +49,16 @@ public class BuilderServiceImpl implements BuilderService {
     public List<CreateBuilderResponseDto> getAllBuilders() {
         log.info("START --> BuilderServiceImpl.getAllBuilders()");
         List<Builder> builders = builderRepository.findAll();
-        log.info("START --> BuilderServiceImpl.getAllBuilders()");
+        log.info("END --> BuilderServiceImpl.getAllBuilders()");
         return builders.stream()
                 .map(
-                        builder -> entityResponseBuilder.convertBuilderEntityToDto(builder.getId())
+                        builder -> {
+                            try {
+                                return entityResponseBuilder.convertBuilderEntityToDto(builder.getId());
+                            } catch (ConstructionException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
                 ).toList();
     }
 

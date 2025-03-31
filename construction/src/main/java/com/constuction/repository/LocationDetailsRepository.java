@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LocationDetailsRepository extends JpaRepository<LocationDetails,Long> {
+
+    LocationDetails findByStateIgnoreCaseAndCityIgnoreCaseAndPincodeAndAddressIgnoreCase(String state, String city, String pincode, String address);
 }

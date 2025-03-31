@@ -5,6 +5,7 @@ import com.constuction.dto.request.create.CreateBuilderRequestDto;
 import com.constuction.dto.response.CreateBuilderResponseDto;
 import com.constuction.service.BuilderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/builder")
 @RequiredArgsConstructor
+@Slf4j
 public class BuilderController {
 
     public final BuilderService builderService;
@@ -21,10 +23,11 @@ public class BuilderController {
     public ResponseEntity<?> createBuilder(@RequestBody CreateBuilderRequestDto createBuilderRequestDto) {
         ApiResponseDto responseDto = new ApiResponseDto();
         try {
-            CreateBuilderResponseDto BuilderResponseDto = builderService.createBuilder(createBuilderRequestDto);
+            CreateBuilderResponseDto builderResponseDto = builderService.createBuilder(createBuilderRequestDto);
             responseDto.setStatus("SUCCESS");
-            responseDto.setData(BuilderResponseDto);
-            responseDto.setMessage("Builder created successfully with id: " + BuilderResponseDto.getId());
+            responseDto.setData(builderResponseDto);
+            log.info("Builder created successfully with id: {}", builderResponseDto.getId());
+            responseDto.setMessage("Builder created successfully with id: " + builderResponseDto.getId());
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
             responseDto.setData(null);
@@ -37,17 +40,20 @@ public class BuilderController {
     public ResponseEntity<?> getAllBuilders() {
         ApiResponseDto responseDto = new ApiResponseDto();
         try {
-            List<CreateBuilderResponseDto> Builders = builderService.getAllBuilders();
+            List<CreateBuilderResponseDto> builders = builderService.getAllBuilders();
             responseDto.setStatus("SUCCESS");
-            responseDto.setData(Builders);
-            responseDto.setMessage(Builders.size() + " Builders details fetched successfully");
-            if (Builders.isEmpty()){
+            responseDto.setData(builders);
+            log.info("{} Builders details fetched successfully", builders.size());
+            responseDto.setMessage(builders.size() + " Builders details fetched successfully");
+            if (builders.isEmpty()) {
                 responseDto.setData(null);
+                log.info("No builders found");
                 responseDto.setMessage("No Builders found");
             }
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
             responseDto.setData(null);
+            log.error(e.getMessage());
             responseDto.setMessage("An error occurred: " + e.getMessage());
         }
         return ResponseEntity.ok(responseDto);
@@ -61,6 +67,7 @@ public class BuilderController {
         } catch (Exception e) {
             responseDto.setStatus("FAILURE");
             responseDto.setData(null);
+            log.error(e.getMessage());
             responseDto.setMessage("An error occurred: " + e.getMessage());
         }
         return ResponseEntity.ok(responseDto);

@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface AdminRepository extends JpaRepository<Admin,Long> {
 
@@ -15,5 +13,5 @@ public interface AdminRepository extends JpaRepository<Admin,Long> {
             "and a.basicDetails.firstName =:firstName " +
             "and a.basicDetails.lastName =:lastName " +
             "and a.basicDetails.mobileNumber =:mobileNumber")
-    List<Admin> findByFirstNameAndLastNameAndMobileNumber(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("mobileNumber") String mobileNumber);
+    Admin findByFirstNameAndLastNameAndMobileNumber(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("mobileNumber") String mobileNumber);
 }

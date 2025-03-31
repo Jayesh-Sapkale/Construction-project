@@ -3,8 +3,10 @@ package com.constuction.serviceImpl;
 import com.constuction.dto.ApiResponseDto;
 import com.constuction.dto.request.create.CreateProjectRequestDto;
 import com.constuction.dto.response.CreateProjectResponseDto;
+import com.constuction.entity.Builder;
 import com.constuction.entity.Project;
 import com.constuction.exceptions.ConstructionException;
+import com.constuction.repository.BuilderRepository;
 import com.constuction.repository.ProjectRepository;
 import com.constuction.service.ProjectService;
 import com.constuction.utils.EntityRequestBuilder;
@@ -14,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -22,14 +25,15 @@ public class ProjectServiceImpl implements ProjectService {
     public final EntityResponseBuilder entityResponseBuilder;
     public final EntityRequestBuilder entityRequestBuilder;
     public final ProjectRepository projectRepository;
+    public final BuilderRepository builderRepository;
 
     @Override
     public CreateProjectResponseDto createProject(CreateProjectRequestDto projectRequestDto) throws ConstructionException {
         log.info("START --> ProjectServiceImpl.createProject()");
 
-        List<Project> existingProjects = projectRepository.findByProjectName(projectRequestDto.getProjectName());
+        Project existingProject = projectRepository.findByProjectName(projectRequestDto.getProjectName());
 
-        if (!existingProjects.isEmpty())
+        if (Objects.nonNull(existingProject))
             throw new ConstructionException("project already exist");
         Project savedProject = entityRequestBuilder.convertProjectEntityToDto(projectRequestDto);
         log.info("END --> ProjectServiceImpl.createProject()");
@@ -48,7 +52,13 @@ public class ProjectServiceImpl implements ProjectService {
         log.info("END --> ProjectServiceImpl.getAllProjects()");
         return Projects.stream()
                 .map(
-                        Project -> entityResponseBuilder.convertProjectEntityToDto(Project.getId())
+                        Project -> {
+                            try {
+                                return entityResponseBuilder.convertProjectEntityToDto(Project.getId());
+                            } catch (ConstructionException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
                 ).toList();
     }
 
