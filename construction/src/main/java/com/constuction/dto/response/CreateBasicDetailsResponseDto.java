@@ -1,4 +1,4 @@
-package com.constuction.dto.request.update;
+package com.constuction.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateBasicDetailsRequestDto {
-
+public class CreateBasicDetailsResponseDto {
+    private Long id;
     private String firstName;
     private String lastName;
     private String mobileNumber;

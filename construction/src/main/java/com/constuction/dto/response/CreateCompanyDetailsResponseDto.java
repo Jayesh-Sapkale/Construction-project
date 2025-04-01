@@ -1,4 +1,4 @@
-package com.constuction.dto.request.update;
+package com.constuction.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,14 +11,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateCompanyDetailsRequestDto {
+public class CreateCompanyDetailsResponseDto {
+    private Long id;
     private String name;
     private Long numberOfEmployee;
     private Double annualRevenue;
     private String website;
     private LocalDate foundingDate;
     private String constructionType;
-    private CreateLocationDetailsRequestDto locationDetails;
+    private CreateLocationDetailsResponseDto locationDetails;
 
 
 }

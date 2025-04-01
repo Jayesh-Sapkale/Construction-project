@@ -1,9 +1,8 @@
 package com.constuction.serviceImpl;
 
-import com.constuction.dto.ApiResponseDto;
+import com.constuction.dto.response.ApiResponseDto;
 import com.constuction.dto.request.create.CreateProjectRequestDto;
 import com.constuction.dto.response.CreateProjectResponseDto;
-import com.constuction.entity.Builder;
 import com.constuction.entity.Project;
 import com.constuction.exceptions.ConstructionException;
 import com.constuction.repository.BuilderRepository;
@@ -35,7 +34,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         if (Objects.nonNull(existingProject))
             throw new ConstructionException("project already exist");
-        Project savedProject = entityRequestBuilder.convertProjectEntityToDto(projectRequestDto);
+        Project savedProject = entityRequestBuilder.convertProjectDtoToEntity(projectRequestDto);
         log.info("END --> ProjectServiceImpl.createProject()");
         return entityResponseBuilder.convertProjectEntityToDto(savedProject.getId());
     }

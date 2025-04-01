@@ -1,4 +1,4 @@
-package com.constuction.dto.create.response;
+package com.constuction.dto.request.update;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class LocationDetailsResponseDto {
+public class UpdateOrderRequestDto {
     private Long id;
-    private String State;
-    private String city;
-    private String pincode;
-    private String address;
 }

@@ -1,6 +1,6 @@
 package com.constuction.serviceImpl;
 
-import com.constuction.dto.ApiResponseDto;
+import com.constuction.dto.response.ApiResponseDto;
 import com.constuction.dto.request.create.CreateAdminRequestDto;
 import com.constuction.dto.response.CreateAdminResponseDto;
 import com.constuction.entity.Admin;
@@ -38,7 +38,7 @@ public class AdminServiceImpl implements AdminService {
             throw new ConstructionException("Admin already exist");
         }
 
-        Admin savedAdmin = entityRequestBuilder.convertAdminEntityToDto(adminRequestDto);
+        Admin savedAdmin = entityRequestBuilder.convertAdminDtoToEntity(adminRequestDto);
         log.info("END --> AdminServiceImpl.createAdmin()");
         return entityResponseBuilder.convertAdminEntityToDto(savedAdmin.getId());
     }

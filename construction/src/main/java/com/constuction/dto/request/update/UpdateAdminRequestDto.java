@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateLocationDetailsRequestDto {
-    private String State;
-    private String city;
-    private String pincode;
-    private String address;
+public class UpdateAdminRequestDto {
+    private Long id;
+    private UpdateBasicDetailsRequestDto basicDetails;
+    private UpdateLocationDetailsRequestDto locationDetails;
+
 }

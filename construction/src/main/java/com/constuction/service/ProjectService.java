@@ -1,6 +1,6 @@
 package com.constuction.service;
 
-import com.constuction.dto.ApiResponseDto;
+import com.constuction.dto.response.ApiResponseDto;
 import com.constuction.dto.request.create.CreateProjectRequestDto;
 import com.constuction.dto.response.CreateProjectResponseDto;
 import com.constuction.exceptions.ConstructionException;

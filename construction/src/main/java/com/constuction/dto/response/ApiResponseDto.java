@@ -1,4 +1,4 @@
-package com.constuction.dto;
+package com.constuction.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

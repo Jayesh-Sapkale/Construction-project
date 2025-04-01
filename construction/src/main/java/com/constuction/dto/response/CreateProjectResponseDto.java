@@ -1,4 +1,4 @@
-package com.constuction.dto.request.update;
+package com.constuction.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateProjectRequestDto {
+public class CreateProjectResponseDto {
 
-    private CreateLocationDetailsRequestDto locationDetails;
-    private CreateBuilderRequestDto builder;
+    private Long id;
+    private CreateLocationDetailsResponseDto locationDetails;
+    private CreateBuilderResponseDto builder;
     private String constructionType;
     private Double area;
     private String projectName;

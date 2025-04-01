@@ -1,4 +1,4 @@
-package com.constuction.dto.create.response;
+package com.constuction.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CustomerResponseDto {
+public class CreateLocationDetailsResponseDto {
     private Long id;
-    private BasicDetailsResponseDto basicDetails;
-    private LocationDetailsResponseDto locationDetails;
-
+    private String State;
+    private String city;
+    private String pincode;
+    private String address;
 }

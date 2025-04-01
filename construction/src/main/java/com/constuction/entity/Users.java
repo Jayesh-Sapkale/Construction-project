@@ -1,26 +1,27 @@
 package com.constuction.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.boot.autoconfigure.web.WebProperties;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-
-@Table(name="users")
+@Table(name = "users")
 @Entity
 @Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Users extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-   private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-   @Column(name = "user_name")
-   private String userName;
+	@Column(name = "user_name")
+	private String userName;
 
-   @Column(name = "password")
-   private String password;
+	@Column(name = "password")
+	private String password;
 }

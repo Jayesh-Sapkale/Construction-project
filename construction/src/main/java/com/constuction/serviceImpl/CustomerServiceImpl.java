@@ -1,6 +1,6 @@
 package com.constuction.serviceImpl;
 
-import com.constuction.dto.ApiResponseDto;
+import com.constuction.dto.response.ApiResponseDto;
 import com.constuction.dto.request.create.CreateCustomerRequestDto;
 import com.constuction.dto.response.CreateCustomerResponseDto;
 import com.constuction.entity.Customer;
@@ -34,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         if (Objects.nonNull(existingCustomer))
             throw new ConstructionException("customer already exist");
-        Customer savedCustomer = entityRequestBuilder.convertCustomerEntityToDto(customerRequestDto);
+        Customer savedCustomer = entityRequestBuilder.convertCustomerDtoToEntity(customerRequestDto);
         log.info("END --> CustomerServiceImpl.createCustomer()");
         return entityResponseBuilder.convertCustomerEntityToDto(savedCustomer.getId());
     }

@@ -1,6 +1,6 @@
 package com.constuction.controller;
 
-import com.constuction.dto.ApiResponseDto;
+import com.constuction.dto.response.ApiResponseDto;
 import com.constuction.dto.request.create.CreateBuilderRequestDto;
 import com.constuction.dto.response.CreateBuilderResponseDto;
 import com.constuction.service.BuilderService;

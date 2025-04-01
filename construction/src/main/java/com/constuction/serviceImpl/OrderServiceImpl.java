@@ -1,10 +1,8 @@
 package com.constuction.serviceImpl;
 
-import com.constuction.dto.ApiResponseDto;
+import com.constuction.dto.response.ApiResponseDto;
 import com.constuction.dto.request.create.CreateOrderRequestDto;
 import com.constuction.dto.response.CreateOrderResponseDto;
-import com.constuction.entity.Builder;
-import com.constuction.entity.Customer;
 import com.constuction.entity.Order;
 import com.constuction.exceptions.ConstructionException;
 import com.constuction.repository.OrderRepository;
@@ -28,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public CreateOrderResponseDto createOrder(CreateOrderRequestDto orderRequestDto) throws ConstructionException {
         log.info("START --> OrderServiceImpl.createOrder()");
-        Order savedOrder = entityRequestBuilder.convertOrderEntityToDto(orderRequestDto);
+        Order savedOrder = entityRequestBuilder.convertOrderDtoToEntity(orderRequestDto);
         log.info("END --> OrderServiceImpl.createOrder()");
         return entityResponseBuilder.convertOrderEntityToDto(savedOrder.getId());
     }

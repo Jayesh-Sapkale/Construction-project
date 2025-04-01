@@ -1,6 +1,6 @@
 package com.constuction.serviceImpl;
 
-import com.constuction.dto.ApiResponseDto;
+import com.constuction.dto.response.ApiResponseDto;
 import com.constuction.dto.request.create.CreateBuilderRequestDto;
 import com.constuction.dto.response.CreateBuilderResponseDto;
 import com.constuction.entity.Builder;
@@ -35,7 +35,7 @@ public class BuilderServiceImpl implements BuilderService {
         if (Objects.nonNull(existingBuilder))
             throw new ConstructionException("builder already exist");
 
-        Builder savedBuilder = entityRequestBuilder.convertBuilderEntityToDto(builderRequestDto);
+        Builder savedBuilder = entityRequestBuilder.convertBuilderDtoToEntity(builderRequestDto);
         log.info("END --> BuilderServiceImpl.createBuilder()");
         return entityResponseBuilder.convertBuilderEntityToDto(savedBuilder.getId());
     }

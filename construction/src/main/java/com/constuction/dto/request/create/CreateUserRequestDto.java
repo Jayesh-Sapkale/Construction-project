@@ -1,14 +1,16 @@
-package com.constuction.dto.update.request;
+package com.constuction.dto.request.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(toBuilder = true)
-public class UpdateOrderRequestDto {
-    private Long id;
+@Data
+@Builder
+public class CreateUserRequestDto {
+
+	private String userName;
+	private String password;
 }

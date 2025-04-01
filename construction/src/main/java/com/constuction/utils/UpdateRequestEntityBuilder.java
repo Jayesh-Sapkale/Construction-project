@@ -1,7 +1,6 @@
 package com.constuction.utils;
 
-import com.constuction.dto.create.request.*;
-import com.constuction.dto.update.request.*;
+import com.constuction.dto.request.update.*;
 import com.constuction.entity.*;
 import com.constuction.enums.ConstructionType;
 import com.constuction.enums.Gender;
@@ -33,7 +32,7 @@ public class UpdateRequestEntityBuilder {
                         .toBuilder()
                         .address(locationDetailsRequestDto.getAddress())
                         .city(locationDetailsRequestDto.getCity())
-                        .State(locationDetailsRequestDto.getState())
+                        .state(locationDetailsRequestDto.getState())
                         .pincode(locationDetailsRequestDto.getPincode())
                         .build());
 

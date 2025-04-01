@@ -9,12 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateBuilderRequestDto {
+public class UpdateBuilderRequestDto {
 
+    private Long id;
     private Double rate;
     private Double yearsOfExperience;
     private Boolean isAvailable;
-    private CreateCompanyDetailsRequestDto companyDetails;
-    private CreateBasicDetailsRequestDto basicDetails;
-    private CreateLocationDetailsRequestDto locationDetails;
+    private UpdateCompanyDetailsRequestDto companyDetails;
+    private UpdateBasicDetailsRequestDto basicDetails;
+    private UpdateLocationDetailsRequestDto locationDetails;
 }
