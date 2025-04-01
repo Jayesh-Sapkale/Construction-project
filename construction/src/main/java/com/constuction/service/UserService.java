@@ -7,4 +7,6 @@ import com.constuction.exceptions.ConstructionException;
 public interface UserService {
 
 	public CreateUserResponseDto registerUser(CreateUserRequestDto userRequestDto) throws ConstructionException;
+
+	public String verify(CreateUserRequestDto user);
 }

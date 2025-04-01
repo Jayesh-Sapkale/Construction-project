@@ -42,4 +42,10 @@ public class UserController {
 		return responseDto;
 	}
 
+	@PostMapping("/login")
+	public String login(@RequestBody CreateUserRequestDto user) {
+
+		return userService.verify(user);
+	}
+
 }
