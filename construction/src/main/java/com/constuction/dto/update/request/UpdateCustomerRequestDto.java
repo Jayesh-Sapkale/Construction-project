@@ -1,4 +1,4 @@
-package com.constuction.dto.response;
+package com.constuction.dto.update.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateCustomerResponseDto {
+public class UpdateCustomerRequestDto {
     private Long id;
-    private CreateBasicDetailsResponseDto basicDetails;
-    private CreateLocationDetailsResponseDto locationDetails;
-
+    private UpdateBasicDetailsRequestDto basicDetails;
+    private UpdateLocationDetailsRequestDto locationDetails;
 }

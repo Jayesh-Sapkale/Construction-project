@@ -1,4 +1,4 @@
-package com.constuction.dto.response;
+package com.constuction.dto.create.response;
 
 import com.constuction.entity.Customer;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class CreateOrderResponseDto {
+public class OrderResponseDto {
     private Long id;
     private CreateCustomerResponseDto customer;
     private CreateProjectResponseDto project;

@@ -4,17 +4,18 @@ spring:
       enabled: ALWAYS
   application: 
     name: construction-project
-  datasource: 
+  datasource:
     url: jdbc:mysql://localhost:3306/construction
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: update
       show-sql: true
       properties: 
-        hibernate: 
+        hibernate:
           format-sql: true
   security:
     jwt:
